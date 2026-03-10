@@ -180,7 +180,7 @@ function openProjectModal(id) {
         <div style="margin-bottom:1.5rem;">
             <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.25rem;color:var(--text-dark);line-height:1.1;margin-bottom:0.75rem;">${p.title}</h2>
             <div style="display:flex;gap:1rem;align-items:center;">
-                <span style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(74,222,128,.12);color:var(--primary-dark);padding:.375rem .75rem;border-radius:.375rem;">${p.category}</span>
+                <span style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(212, 74, 222, 0.12);color:var(--primary-dark);padding:.375rem .75rem;border-radius:.375rem;">${p.category}</span>
                 <span style="font-size:.7rem;color:var(--text-light);letter-spacing:.08em;text-transform:uppercase;">${p.year}</span>
             </div>
         </div>
@@ -198,7 +198,7 @@ function openProjectModal(id) {
         <div>
             <h3 style="font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--primary-dark);margin-bottom:.75rem;">Technologies</h3>
             <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
-                ${p.technologies.map(t => `<span style="font-size:.75rem;font-weight:500;padding:.375rem .75rem;background:rgba(74,222,128,.1);color:var(--primary-dark);border-radius:.375rem;border:1px solid rgba(74,222,128,.3);">${t}</span>`).join('')}
+                ${p.technologies.map(t => `<span style="font-size:.75rem;font-weight:500;padding:.375rem .75rem;background:rgba(222, 74, 215, 0.1);color:var(--primary-dark);border-radius:.375rem;border:1px solid rgba(222, 74, 212, 0.3);">${t}</span>`).join('')}
             </div>
         </div>
     `;
@@ -249,7 +249,7 @@ if (form) {
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const msg = document.getElementById('message').value;
-        window.location.href = `mailto:sophiadariyadourng@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`)}`;
+        window.location.href = `mailto:dariyadourng@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`)}`;
         form.reset();
     });
 }
