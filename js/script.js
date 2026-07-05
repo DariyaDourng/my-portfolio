@@ -178,10 +178,11 @@ function openProjectModal(id) {
 
         <!-- Title & Meta -->
         <div style="margin-bottom:1.5rem;">
-            <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.25rem;color:var(--text-dark);line-height:1.1;margin-bottom:0.75rem;">${p.title}</h2>
-            <div style="display:flex;gap:1rem;align-items:center;">
-                <span style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(212, 74, 222, 0.12);color:var(--primary-dark);padding:.375rem .75rem;border-radius:.375rem;">${p.category}</span>
-                <span style="font-size:.7rem;color:var(--text-light);letter-spacing:.08em;text-transform:uppercase;">${p.year}</span>
+            <h2 style="font-family:var(--font-display);font-weight:600;font-size:2rem;color:var(--ink);line-height:1.15;letter-spacing:-0.02em;margin-bottom:0.75rem;">${p.title}</h2>
+            <div style="display:flex;align-items:baseline;gap:.75rem;">
+                <span style="font-family:var(--font-mono);font-size:.72rem;font-weight:500;letter-spacing:.02em;color:var(--ink-faint);">${p.category}</span>
+                <span style="color:var(--line);">—</span>
+                <span style="font-family:var(--font-mono);font-size:.72rem;color:var(--ink-faint);">${p.year}</span>
             </div>
         </div>
 
@@ -189,16 +190,16 @@ function openProjectModal(id) {
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-bottom:2rem;">
             ${[['Overview', p.overview], ['Challenge', p.challenge], ['Result', p.result]].map(([h, t]) => `
             <div>
-                <h3 style="font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--primary-dark);margin-bottom:.625rem;">${h}</h3>
-                <p style="font-size:.9rem;line-height:1.75;color:var(--text-light);">${t}</p>
+                <h3 style="font-family:var(--font-mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:.625rem;">${h}</h3>
+                <p style="font-size:.9rem;line-height:1.75;color:var(--ink-soft);">${t}</p>
             </div>`).join('')}
         </div>
 
         <!-- Technologies -->
         <div>
-            <h3 style="font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--primary-dark);margin-bottom:.75rem;">Technologies</h3>
-            <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
-                ${p.technologies.map(t => `<span style="font-size:.75rem;font-weight:500;padding:.375rem .75rem;background:rgba(222, 74, 215, 0.1);color:var(--primary-dark);border-radius:.375rem;border:1px solid rgba(222, 74, 212, 0.3);">${t}</span>`).join('')}
+            <h3 style="font-family:var(--font-mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;">Technologies</h3>
+            <div style="display:flex;flex-wrap:wrap;gap:0 1rem;">
+                ${p.technologies.map((t, i) => `<span style="font-family:var(--font-mono);font-size:.78rem;color:var(--ink-soft);">${i > 0 ? '<span style="color:var(--ink-faint);margin-right:1rem;">·</span>' : ''}${t}</span>`).join('')}
             </div>
         </div>
     `;
@@ -253,3 +254,28 @@ if (form) {
         form.reset();
     });
 }
+const yearEl = document.getElementById("current-year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+// ============================================
+// GLOBAL IMAGE FALLBACK — auto-swap broken images
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+  const FALLBACK_BG = '15161e';
+  const FALLBACK_FG = '7c6df2';
+
+  document.querySelectorAll('img').forEach(img => {
+    img.addEventListener('error', function handleError() {
+      // Prevent infinite loop if the placeholder itself fails
+      this.removeEventListener('error', handleError);
+
+      // Use the alt text (or a generic label) in the placeholder
+      const label = encodeURIComponent(this.alt || 'Image');
+      const width = this.width || 600;
+      const height = this.height || 450;
+
+      this.src = `https://placehold.co/${width}x${height}/${FALLBACK_BG}/${FALLBACK_FG}?text=${label}`;
+      this.classList.add('img-fallback');
+    });
+  });
+});
